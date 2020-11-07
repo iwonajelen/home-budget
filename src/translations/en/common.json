@@ -1,0 +1,22 @@
+{
+    "app": {
+        "title": "Home budget"
+    },
+    "transactions": {
+        "creation_date": "Creation date",
+        "date": "Date",
+        "amount": "Amount",
+        "currency": "Currency",
+        "type": "Type",
+        "category": "Category",
+        "constant": "Constant",
+        "period": "Period",
+        "comment": "Comment",
+        "unexpected": "Unexpected"
+    },
+    "buttons": {
+        "save": "Save",
+        "clear": "Clear",
+        "select_csv_file": "Select the .csv file"
+    }
+}

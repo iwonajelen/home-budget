@@ -1,0 +1,22 @@
+{
+    "app": {
+        "title": "Budżet domowy"
+    },
+    "transactions": {
+        "creation_date": "Data utworzenia",
+        "date": "Data",
+        "amount": "Kwota",
+        "currency": "Waluta",
+        "type": "Rodzaj",
+        "category": "Kategoria",
+        "constant": "Stały",
+        "period": "Okres",
+        "comment": "Komentarz",
+        "unexpected": "Nieprzewidziany"
+    },
+    "buttons": {
+        "save": "Zapisz",
+        "clear": "Wyczyść",
+        "select_csv_file": "Wybierz plik .csv"
+    }
+}
