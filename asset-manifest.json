@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/iwonajelen/home-budget/static/css/main.2cb90b3a.chunk.css",
+    "main.js": "/iwonajelen/home-budget/static/js/main.555bb4ea.chunk.js",
+    "main.js.map": "/iwonajelen/home-budget/static/js/main.555bb4ea.chunk.js.map",
+    "runtime-main.js": "/iwonajelen/home-budget/static/js/runtime-main.ed78f4ea.js",
+    "runtime-main.js.map": "/iwonajelen/home-budget/static/js/runtime-main.ed78f4ea.js.map",
+    "static/css/2.d4c46ee9.chunk.css": "/iwonajelen/home-budget/static/css/2.d4c46ee9.chunk.css",
+    "static/js/2.055b7d69.chunk.js": "/iwonajelen/home-budget/static/js/2.055b7d69.chunk.js",
+    "static/js/2.055b7d69.chunk.js.map": "/iwonajelen/home-budget/static/js/2.055b7d69.chunk.js.map",
+    "index.html": "/iwonajelen/home-budget/index.html",
+    "static/css/2.d4c46ee9.chunk.css.map": "/iwonajelen/home-budget/static/css/2.d4c46ee9.chunk.css.map",
+    "static/css/main.2cb90b3a.chunk.css.map": "/iwonajelen/home-budget/static/css/main.2cb90b3a.chunk.css.map",
+    "static/js/2.055b7d69.chunk.js.LICENSE.txt": "/iwonajelen/home-budget/static/js/2.055b7d69.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ed78f4ea.js",
+    "static/css/2.d4c46ee9.chunk.css",
+    "static/js/2.055b7d69.chunk.js",
+    "static/css/main.2cb90b3a.chunk.css",
+    "static/js/main.555bb4ea.chunk.js"
+  ]
+}
