@@ -37,3 +37,9 @@
     transform: translateY(0px)
   }
 }
+
+$modal-content-width: 1000px;
+
+@import '../node_modules/bulma/sass/utilities/_all.sass';
+@import '../node_modules/bulma/sass/base/_all.sass';
+@import '../node_modules/bulma/sass/components/navbar.sass';

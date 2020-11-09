@@ -12,11 +12,21 @@
         "constant": "Constant",
         "period": "Period",
         "comment": "Comment",
-        "unexpected": "Unexpected"
+        "unexpected": "Unexpected",
+        "types": {
+            "expense": "Expense",
+            "income": "Income"
+        },
+        "periods": {
+            "month": "Month",
+            "day": "Day"
+        }
     },
     "buttons": {
         "save": "Save",
+        "cancel": "Cancel",
         "clear": "Clear",
-        "select_csv_file": "Select the .csv file"
+        "select_csv_file": "Select the .csv file",
+        "new_transaction": "New transaction"
     }
 }

@@ -12,11 +12,21 @@
         "constant": "Stały",
         "period": "Okres",
         "comment": "Komentarz",
-        "unexpected": "Nieprzewidziany"
+        "unexpected": "Nieprzewidziany",
+        "types": {
+            "expense": "Wydatek",
+            "income": "Przychód"
+        },
+        "periods": {
+            "month": "Miesiąc",
+            "day": "Dzień"
+        }
     },
     "buttons": {
         "save": "Zapisz",
+        "cancel": "Anuluj",
         "clear": "Wyczyść",
-        "select_csv_file": "Wybierz plik .csv"
+        "select_csv_file": "Wybierz plik .csv",
+        "new_transaction": "Nowa transakcja"
     }
 }

@@ -1,14 +1,13 @@
 import React from 'react';
 import './App.scss';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
-import { Budget } from './features/budget/Budget';
-import { BudgetNavbar } from './features/budget/BudgetNavbar';
+import "bulma-calendar/dist/css/bulma-calendar.min.css"
+import { HomeBudget } from './features/budget/HomeBudget'
 
 function App() {
   return (
     <section className="">
-        <BudgetNavbar />
-        <Budget />
+      <HomeBudget />
     </section>
   );
 }
