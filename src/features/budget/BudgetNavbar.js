@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import CSVReader from 'react-csv-reader'
-import { updateTransactions, selectEntries } from '../transactions/transactionsSlice';
+import { updateTransactions } from '../transactions/transactionsSlice';
 import { CSVLink } from "react-csv";
 import { useTranslation } from "react-i18next";
 
 export function BudgetNavbar(props) {
     const {t, i18n} = useTranslation('common');
     const dispatch = useDispatch();
-    const transactions = useSelector(selectEntries);
     const [fileName, setFileName] = useState('');
 
     const parseOptions = {
@@ -59,7 +58,7 @@ export function BudgetNavbar(props) {
                         />
                 </div>
                 <div className="level-item">
-                    <CSVLink filename={"home-budget.csv"} className="button is-success is-light" data={transactions}>
+                    <CSVLink filename={"home-budget.csv"} className="button is-success is-light" data={props.transactions}>
                         <span className="icon is-small">
                             <i className="fas fa-check"></i>
                         </span>

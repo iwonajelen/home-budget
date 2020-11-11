@@ -13,6 +13,7 @@
         "period": "Period",
         "comment": "Comment",
         "unexpected": "Unexpected",
+        "options": "Options",
         "types": {
             "expense": "Expense",
             "income": "Income"
@@ -20,13 +21,17 @@
         "periods": {
             "month": "Month",
             "day": "Day"
-        }
+        },
+        "yes": "Yes",
+        "no": "No",
+        "otherType": "Other"
     },
     "buttons": {
         "save": "Save",
         "cancel": "Cancel",
         "clear": "Clear",
         "select_csv_file": "Select the .csv file",
-        "new_transaction": "New transaction"
+        "new_transaction": "New transaction",
+        "edit_transaction": "Edit transaction"
     }
 }

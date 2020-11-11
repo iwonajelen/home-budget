@@ -1,27 +1,51 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from "react-i18next";
 import bulmaCalendar from 'bulma-calendar/dist/js/bulma-calendar.min';
 import { useForm } from "react-hook-form";
 import './TransactionForm.scss';
-import { addTransaction, selectCategoryList } from '../transactions/transactionsSlice';
+import { addTransaction, editTransaction, selectCategoryList } from '../transactions/transactionsSlice';
+import { TransactionProperties, TransactionEntity } from '../transactions/transactionModel';
 
 export function TransactionForm(props) {
     const {t, i18n} = useTranslation('common');
-
+    const [isCustomCategory, setIsCustomCategory] = useState(false);
     const dispatch = useDispatch();
     const categoryList = useSelector(selectCategoryList);
 
-    const { handleSubmit, register, errors } = useForm({
-        reValidateMode: 'onChange'
+    const defaultTransaction = () => {
+        return props.transaction ? props.transaction : {}
+    }
+
+    const { handleSubmit, register, getValues, errors } = useForm({
+        mode: "onBlur",
+        reValidateMode: 'onChange',
+        defaultValues: {
+            ...defaultTransaction(),
+            date: "11/11/2020"
+        } 
     });
+
     const onSubmit = values => {
-        const formData = {
-            creation_date: new Date().toString(),
-            ...values
+        const entity = new TransactionEntity();
+        entity.setBasedOnFormData(values, isCustomCategory);
+
+        if(!props.isEdit) {
+            const formData = {
+                ...entity,
+                creation_date: new Date().toString()
+            }
+            dispatch(addTransaction(formData));
+        } else {
+            const payload = {
+                transaction: {
+                    ...entity
+                },
+                index: props.indexOfTransaction
+            }
+            dispatch(editTransaction(payload));
         }
-        console.log("formData", formData)
-        dispatch(addTransaction(formData));
+        props.onClose();
     }
 
     useEffect(() => {
@@ -38,38 +62,47 @@ export function TransactionForm(props) {
     
         calendars.forEach((calendar) => {
           calendar.on('select', (date) => {
-            console.log("date", date);
+            // console.log("date", date);
           });
         });
     
         const element = document.querySelector('#transaction-date');
         if (element) {
           element.bulmaCalendar.on('select', (datepicker) => {
-            console.log("datepicker", datepicker.data.isOpen());
             datepicker.data.hide();
           });
         }
       }, []);
 
+    const categoryOptionsChanged = (e) => {
+        setIsCustomCategory(e.target.selectedIndex === e.target.length-1);
+    };  
+    
     const renderCategoryList = () => {
         if(categoryList.length > 0) {
+            const categoryListOptions = [...categoryList, t('transactions.otherType')]
             return(
-                <div className="select is-info">
-                    <select name="category" ref={register}>
-                        {categoryList.map(category => <option value={category}>{category}</option>)}
-                    </select>
+                <div>
+                    <div className="select is-info">
+                        <select name={TransactionProperties.CATEGORY} ref={register} onChange={categoryOptionsChanged}>
+                            {categoryListOptions.map(category => <option key={categoryListOptions.indexOf(category)} value={category}>{category}</option>)}
+                        </select>
+                    </div>
+                    <div className="control">
+                        <input className="input is-info" name="otherCategory" type={isCustomCategory ? 'text' : 'hidden'} ref={register} placeholder={t('transactions.otherType')}/>
+                    </div>
                 </div>
             )
         } else {
             return(
                 <div className="control">
-                    <input name="category" 
+                    <input name={TransactionProperties.CATEGORY}
                         ref={register({
                             required: "Required"
                         })} 
                         className={"input " + (errors.amount && "is-danger")}
                         type="text" 
-                        placeholder="Category"/>
+                        placeholder={t('transactions.category')}/>
                 </div>
             )
         }
@@ -80,7 +113,7 @@ export function TransactionForm(props) {
             <div className="modal-background" onClick={() => props.onClose()}></div>
             <form className="modal-card" onSubmit={handleSubmit(onSubmit)}>
                 <header className="modal-card-head">
-                    <p className="modal-card-title">{t('buttons.new_transaction')}</p>
+                    <p className="modal-card-title">{ props.isEdit ? t('buttons.edit_transaction') : t('buttons.new_transaction')}</p>
                     <button className="delete" aria-label="close" onClick={() => props.onClose()}></button>
                 </header>
                 <section className="modal-card-body">
@@ -91,7 +124,7 @@ export function TransactionForm(props) {
                         <div className="field-body">
                             <div className="field">
                                 <div className="control">
-                                    <input id="transaction-date" name="date" ref={register} className="input" type="date"/>
+                                    <input id="transaction-date" name={TransactionProperties.DATE} ref={register} className="input" type="date"/>
                                 </div>
                             </div>
                         </div>
@@ -103,9 +136,9 @@ export function TransactionForm(props) {
                         <div className="field-body">
                             <div className="field">
                                 <div className="select is-info">
-                                    <select name="type" ref={register}>
-                                        <option value="-">{t('transactions.types.expense')}</option>
-                                        <option value="+">{t('transactions.types.income')}</option>
+                                    <select name={TransactionProperties.TYPE} ref={register}>
+                                        <option key="expense" value="-">{t('transactions.types.expense')}</option>
+                                        <option key="income" value="+">{t('transactions.types.income')}</option>
                                     </select>
                                 </div>
                             </div>
@@ -128,7 +161,7 @@ export function TransactionForm(props) {
                         <div className="field-body">
                             <div className="field has-addons">
                                 <div className="control">
-                                    <input name="amount" 
+                                    <input name={TransactionProperties.AMOUNT}
                                         ref={register({
                                             required: "Required",
                                             validate: value => parseFloat(value) > 0 || "Nice try!"
@@ -138,7 +171,7 @@ export function TransactionForm(props) {
                                         placeholder="0"/>
                                 </div>
                                 <div className="control">
-                                    <input name="currency" ref={register} placeholder="PLN" className="button is-static" value="PLN" readOnly/>
+                                    <input name={TransactionProperties.CURRENCY} ref={register} placeholder="PLN" className="button is-static" value="PLN" readOnly/>
                                 </div>
                             </div>
                         </div>
@@ -150,7 +183,7 @@ export function TransactionForm(props) {
                         <div className="field-body">
                             <div className="field">
                                 <div className="control">
-                                    <input name="constant" ref={register} type="checkbox"/>
+                                    <input name={TransactionProperties.CONSTANT} ref={register} type="checkbox"/>
                                 </div>
                             </div>
                         </div>
@@ -161,10 +194,10 @@ export function TransactionForm(props) {
                         </div>
                         <div className="field-body">
                             <div className="field">
-                                <div className="select is-info">
-                                    <select name="period" ref={register}>
-                                        <option value="month">{t('transactions.periods.month')}</option>
-                                        <option value="day">{t('transactions.periods.day')}</option>
+                                <div className="select is-info is-static">
+                                    <select className="is-static" name={TransactionProperties.PERIOD} ref={register}>
+                                        <option key="month" value="month">{t('transactions.periods.month')}</option>
+                                        <option key="day" value="day">{t('transactions.periods.day')}</option>
                                     </select>
                                 </div>
                             </div>
@@ -177,7 +210,7 @@ export function TransactionForm(props) {
                         <div className="field-body">
                             <div className="field">
                                 <div className="control">
-                                    <input name="unexpected" ref={register} type="checkbox"/>
+                                    <input name={TransactionProperties.UNEXPECTED} ref={register} type="checkbox"/>
                                 </div>
                             </div>
                         </div>
@@ -189,7 +222,7 @@ export function TransactionForm(props) {
                         <div className="field-body">
                             <div className="field">
                             <div className="control">
-                                <textarea name="comment" ref={register} className="textarea" placeholder={t('transactions.comment')}></textarea>
+                                <textarea name={TransactionProperties.COMMENT} ref={register} className="textarea" placeholder={t('transactions.comment')}></textarea>
                             </div>
                             </div>
                         </div>

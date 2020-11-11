@@ -16,11 +16,14 @@ export const transactionsSlice = createSlice({
       if(action.payload !== -1) {
         state.entries.splice(action.payload, 1);
       }
+    },
+    editTransaction: (state, action) => {
+      state.entries[action.payload.index] = {...action.payload.transaction};
     }
   },
 });
 
-export const { updateTransactions, addTransaction, removeTransaction } = transactionsSlice.actions;
+export const { updateTransactions, addTransaction, editTransaction, removeTransaction } = transactionsSlice.actions;
 
 export const selectEntries = state => state.transactions.entries;
 

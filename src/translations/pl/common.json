@@ -13,6 +13,7 @@
         "period": "Okres",
         "comment": "Komentarz",
         "unexpected": "Nieprzewidziany",
+        "options": "Opcje",
         "types": {
             "expense": "Wydatek",
             "income": "Przychód"
@@ -20,13 +21,17 @@
         "periods": {
             "month": "Miesiąc",
             "day": "Dzień"
-        }
+        },
+        "yes": "Tak",
+        "no": "Nie",
+        "otherType": "Inne"
     },
     "buttons": {
         "save": "Zapisz",
         "cancel": "Anuluj",
         "clear": "Wyczyść",
         "select_csv_file": "Wybierz plik .csv",
-        "new_transaction": "Nowa transakcja"
+        "new_transaction": "Nowa transakcja",
+        "edit_transaction": "Edycja transakcji"
     }
 }
