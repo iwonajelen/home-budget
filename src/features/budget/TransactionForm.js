@@ -17,7 +17,7 @@ export function TransactionForm(props) {
         return props.transaction ? props.transaction : {}
     }
 
-    const { handleSubmit, register, getValues, errors } = useForm({
+    const { handleSubmit, register, watch, errors } = useForm({
         mode: "onBlur",
         reValidateMode: 'onChange',
         defaultValues: {
@@ -25,6 +25,8 @@ export function TransactionForm(props) {
             date: "11/11/2020"
         } 
     });
+
+    const watchConstant = watch("constant", false);
 
     const onSubmit = values => {
         const entity = new TransactionEntity();
@@ -188,6 +190,7 @@ export function TransactionForm(props) {
                             </div>
                         </div>
                     </div>
+                    { watchConstant && (
                     <div className="field is-horizontal">
                         <div className="field-label">
                             <label className="label">{t('transactions.period')}</label>
@@ -203,6 +206,7 @@ export function TransactionForm(props) {
                             </div>
                         </div>
                     </div>
+                    )}
                     <div className="field is-horizontal">
                         <div className="field-label">
                             <label className="label">{t('transactions.unexpected')}</label>
