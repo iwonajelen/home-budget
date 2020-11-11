@@ -57,7 +57,7 @@ export function Budget(props) {
         }
         return data.map((transaction) => {
             return (
-            <tr key={data.indexOf(transaction)}>
+            <tr key={data.indexOf(transaction)} onClick={() => edit(transaction)}>
                 {readValues(transaction)}
                 <td key="options">
                     <button className="button is-danger" onClick={() => remove(transaction)}>
