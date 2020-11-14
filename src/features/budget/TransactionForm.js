@@ -21,8 +21,7 @@ export function TransactionForm(props) {
         mode: "onBlur",
         reValidateMode: 'onChange',
         defaultValues: {
-            ...defaultTransaction(),
-            date: "11/11/2020"
+            ...defaultTransaction()
         } 
     });
 
@@ -59,7 +58,8 @@ export function TransactionForm(props) {
             showClearButton: false,
             startDate: new Date(),
             dateFormat: "DD/MM/YYYY",
-            lang: i18n.language
+            lang: i18n.language,
+            startDate: props.isEdit ? new Date(props.transaction.date) : new Date()
         });
     
         calendars.forEach((calendar) => {
