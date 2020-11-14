@@ -4,6 +4,8 @@ import CSVReader from 'react-csv-reader'
 import { updateTransactions } from '../transactions/transactionsSlice';
 import { CSVLink } from "react-csv";
 import { useTranslation } from "react-i18next";
+import logo from "../../assets/logo.png"
+import './BudgetNavbar.scss';
 
 export function BudgetNavbar(props) {
     const {t, i18n} = useTranslation('common');
@@ -41,13 +43,13 @@ export function BudgetNavbar(props) {
     return (
         <nav className="level navbar container is-fluid">
             <div className="level-left">
-                <p className="title">{t('app.title')}</p>
+                <a href="." className="level-item has-text-centered">
+                    <img src={logo} alt={t('app.title')}/>
+                </a>
             </div>
-            <div className="level-right">
-                <div className="level-item">
-                    <button className="button is-info is-light" onClick={addNewTransaction}>{t('buttons.new_transaction')}</button>
-                </div>
-                <div className="level-item">
+            <div className="level-item">
+                <div className="buttons">
+                    <button className="button is-primary is-light" onClick={addNewTransaction}>{t('buttons.new_transaction')}</button>
                         <CSVReader 
                             label={fileName ? fileName : t('buttons.select_csv_file')}
                             cssClass="button is-primary is-light"
@@ -56,22 +58,22 @@ export function BudgetNavbar(props) {
                             parserOptions={parseOptions} 
                             onFileLoaded={onTransactionsFileLoaded} 
                         />
-                </div>
-                <div className="level-item">
-                    <CSVLink filename={"home-budget.csv"} className="button is-success is-light" data={props.transactions}>
-                        <span className="icon is-small">
+                    <CSVLink filename={fileName ? fileName : "home-budget.csv"} className="button is-primary is-light" data={props.transactions}>
+                        {/* <span className="icon is-small">
                             <i className="fas fa-check"></i>
-                        </span>
+                        </span> */}
                         <span>
                             {t('buttons.save')}
                         </span>
                     </CSVLink>
                 </div>
+            </div>
+            <div className="level-right">
+                {/* <div className="level-item">
+                    <button className="button is-primary is-inverted" onClick={clearTransactionsData}>{t('buttons.clear')}</button>
+                </div> */}
                 <div className="level-item">
-                    <button className="button is-danger is-light" onClick={clearTransactionsData}>{t('buttons.clear')}</button>
-                </div>
-                <div className="level-item">
-                    <button className="button is-dark is-inverted" onClick={() => i18n.changeLanguage(getLanguageToChange())}>{getLanguageToChange()}</button>
+                    <button className="button is-primary is-light" onClick={() => i18n.changeLanguage(getLanguageToChange())}>{getLanguageToChange()}</button>
                 </div>
             </div>
         </nav>

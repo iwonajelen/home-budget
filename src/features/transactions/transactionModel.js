@@ -1,3 +1,5 @@
+import { stringToDate } from '../utils/dateUtils';
+
 export const TransactionProperties = {
     CREATION_DATE: "creation_date",
     DATE: "date",
@@ -27,11 +29,17 @@ export class TransactionEntity {
         this.amount = values.amount;
         this.comment = values.comment;
         this.constant = values.constant;
-        this.date = values.date;
+        this.date = stringToDate(values.date, "DD/MM/YYYY", "/").getTime();
         this.currency = values.currency;
         this.period = values.period;
         this.type = values.type;
         this.unexpected = values.unexpected;
         this.category = isCustomCategory ? values.otherCategory : values.category;
     }
+}
+
+export const getTransactionsByDateDesc = (transactions) => {
+    return [...transactions].sort((a, b) => {
+        return b.date - a.date;
+    })
 }

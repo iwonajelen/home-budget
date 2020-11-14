@@ -232,9 +232,16 @@ export function TransactionForm(props) {
                         </div>
                     </div>
                 </section>
-                <footer className="modal-card-foot">
-                    <button type="submit" className="button is-success">{t("buttons.save")}</button>
-                    <button className="button" onClick={() => props.onClose()}>{t("buttons.cancel")}</button>
+                <footer className="modal-card-foot level container is-fluid">
+                    <div className="level-left level-item">
+                        <button type="submit" className="button is-success">{t("buttons.save")}</button>
+                        <button className="button" onClick={() => props.onClose()}>{t("buttons.cancel")}</button>
+                    </div>
+                    <div className="level-right level-item">
+                        <button className="button is-danger" onClick={() => props.onRemove()}>
+                            <i className="fas fa-trash"></i>
+                        </button>
+                    </div>
                 </footer>
             </form>
         </div>

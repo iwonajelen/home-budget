@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Budget } from './Budget';
 import { BudgetNavbar } from './BudgetNavbar';
 import { TransactionForm } from './TransactionForm';
-import { selectEntries } from '../transactions/transactionsSlice';
+import { selectEntries, removeTransaction } from '../transactions/transactionsSlice';
 
 export function HomeBudget() {
     const [transactionFormOpen, setTransactionFormOpen] = useState(false);
     const [editedTransaction, setEditedTransaction] = useState(null);
-    const transactions = useSelector(selectEntries)
+    const dispatch = useDispatch();
+    const transactions = useSelector(selectEntries);
+
+    const indexOfTransaction = transactions.indexOf(editedTransaction);
 
     const showTransactionForm = (transaction = null) => {
         setTransactionFormOpen(true);
@@ -18,6 +21,12 @@ export function HomeBudget() {
     const hideTransactionForm = () => {
         setTransactionFormOpen(false);
         setEditedTransaction(null);
+    }
+
+    const remove = () => {
+        if(indexOfTransaction !== -1) {
+          dispatch(removeTransaction(indexOfTransaction))
+        }
     }
 
     return (
@@ -32,7 +41,8 @@ export function HomeBudget() {
                 <TransactionForm 
                     isEdit={!!editedTransaction} 
                     transaction={editedTransaction} 
-                    indexOfTransaction={transactions.indexOf(editedTransaction)} 
+                    indexOfTransaction={indexOfTransaction} 
+                    onRemove={() => remove(editedTransaction)}
                     onClose={() => hideTransactionForm()} /> }
         </div>
     )
