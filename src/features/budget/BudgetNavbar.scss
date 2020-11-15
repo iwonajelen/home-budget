@@ -5,3 +5,12 @@
 .level:not(:last-child) {
     margin-bottom: 0;
 }
+
+.file-label {
+    overflow: unset;
+}
+
+.is-fluid-small-padding {
+    padding-left: 5px;
+    padding-right: 5px;
+}
