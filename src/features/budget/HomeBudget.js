@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
 import { Budget } from './Budget';
 import { BudgetNavbar } from './BudgetNavbar';
 import { TransactionForm } from './TransactionForm';
@@ -29,14 +30,19 @@ export function HomeBudget() {
         }
     }
 
+    const isDesktopOrLaptop = useMediaQuery({query: '(min-device-width: 1024px)'});
+
     return (
         <div>
-            <BudgetNavbar 
-                transactions={transactions} 
-                addNewTransaction={() => showTransactionForm()} />
-            <Budget 
-                transactions={transactions} 
-                editTransaction={(transaction) => showTransactionForm(transaction)} />
+            {(!transactionFormOpen || (transactionFormOpen && isDesktopOrLaptop)) &&
+            (<div>
+                <BudgetNavbar 
+                    transactions={transactions} 
+                    addNewTransaction={() => showTransactionForm()} />
+                <Budget 
+                    transactions={transactions} 
+                    editTransaction={(transaction) => showTransactionForm(transaction)} />
+            </div>)}
             {transactionFormOpen && 
                 <TransactionForm 
                     isEdit={!!editedTransaction} 

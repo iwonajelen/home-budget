@@ -5,3 +5,16 @@
 .datetimepicker-dummy-input, .file-input {
     cursor: pointer;
 }
+
+.transaction-form-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.addon-control {
+    max-width: 30%;
+}
+
+.addon-control-input {
+    max-width: 100%;
+}

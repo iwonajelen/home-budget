@@ -64,7 +64,7 @@ export function TransactionForm(props) {
     
         calendars.forEach((calendar) => {
           calendar.on('select', (date) => {
-            // console.log("date", date);
+              
           });
         });
     
@@ -162,18 +162,18 @@ export function TransactionForm(props) {
                         </div>
                         <div className="field-body">
                             <div className="field has-addons">
-                                <div className="control">
+                                <div className="control is-expanded">
                                     <input name={TransactionProperties.AMOUNT}
                                         ref={register({
                                             required: "Required",
-                                            validate: value => parseFloat(value) > 0 || "Nice try!"
+                                            validate: value => parseFloat(value) > 0 || ""
                                         })} 
-                                        className={"input " + (errors.amount && "is-danger")}
+                                        className={"input " + (errors.amount ? "is-danger" : "")}
                                         type="text" 
                                         placeholder="0"/>
                                 </div>
-                                <div className="control">
-                                    <input name={TransactionProperties.CURRENCY} ref={register} placeholder="PLN" className="button is-static" value="PLN" readOnly/>
+                                <div className="control addon-control">
+                                    <input name={TransactionProperties.CURRENCY} ref={register} placeholder="PLN" className="button is-static addon-control-input" value="PLN" readOnly/>
                                 </div>
                             </div>
                         </div>
@@ -232,12 +232,12 @@ export function TransactionForm(props) {
                         </div>
                     </div>
                 </section>
-                <footer className="modal-card-foot level container is-fluid">
-                    <div className="level-left level-item">
+                <footer className="modal-card-foot transaction-form-footer">
+                    <div className="">
                         <button type="submit" className="button is-success">{t("buttons.save")}</button>
                         <button className="button" onClick={() => props.onClose()}>{t("buttons.cancel")}</button>
                     </div>
-                    <div className="level-right level-item">
+                    <div className="">
                         <button className="button is-danger" onClick={() => props.onRemove()}>
                             <i className="fas fa-trash"></i>
                         </button>

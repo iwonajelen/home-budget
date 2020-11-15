@@ -1,5 +1,6 @@
 import React from 'react';
-import { compareDesc, format } from 'date-fns'
+import { format } from 'date-fns'
+import { pl, enUS } from 'date-fns/locale'
 import { TransactionsTable } from "./TransactionsTable";
 import { getTransactionsByDateDesc, TransactionProperties } from "../transactions/transactionModel";
 import { useTranslation } from "react-i18next";
@@ -8,7 +9,7 @@ import './Budget.scss';
 export function Budget(props) {
     const sortedTransactions = getTransactionsByDateDesc(props.transactions);
     const {t, i18n} = useTranslation('common');
-
+    const locale = i18n.language == 'en' ? enUS : pl;
     const getTransactionsByMonth = (transactions) => {
         const mapOfTransactions = new Map();
 
@@ -43,11 +44,11 @@ export function Budget(props) {
         const amountByMonth = getAmountByMonth(transactionsByMonth);
         return (
             <div key={month} className={"table-section " + (amountByMonth > 0 ? "income" : "expense")}>
-                <div className="level table-section-title">
-                    <div className="level-item has-text-centered">
-                        <p className="title title-month is-4">{format(new Date(transactionsByMonth[0].date), "MMMM yyyy")}</p>
+                <div className="table-section-title">
+                    <div className="">
+                        <p className="title title-month is-4">{format(new Date(transactionsByMonth[0].date), "MMM yyyy", { locale })}</p>
                     </div>
-                    <div className="level-item">
+                    <div className="">
                         <p className={"title is-5 " + (amountByMonth > 0 ? "amount-income" : "amount-expense")}>{amountByMonth > 0 ? "+" : ""}{amountByMonth}</p>
                     </div>
                 </div>
@@ -64,7 +65,6 @@ export function Budget(props) {
         }
 
         return dataForMonth;
-        // return mapOfTransactions.values().map((transactionsByMonth) => displayDataForMonth(transactionsByMonth));
     }
 
     return (

@@ -2,8 +2,10 @@
     background-color: rgb(110, 59, 131);
 }
 
-.level:not(:last-child) {
-    margin-bottom: 0;
+.budget-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .file-label {

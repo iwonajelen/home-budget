@@ -11,6 +11,7 @@ import common_pl from "./translations/pl/common.json";
 import common_en from "./translations/en/common.json";
 
 i18next.init({
+    whitelist: ['en', 'pl'],
     interpolation: { escapeValue: false },
     lng: 'pl',                              
     resources: {

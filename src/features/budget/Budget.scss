@@ -1,21 +1,19 @@
 .table-section {
-    margin: 20px 0;
-    box-shadow: 0px 0px 5px rgba(88, 43, 114, 0.5);
+    border-top: 5px solid rgba(88, 43, 114, 0.2);
 
     &.income {
-        background: linear-gradient(to left, rgba(10, 161, 55, 0.4), rgba(255,255,255,0) 50%);
+        background: linear-gradient(to left, rgba(10, 161, 55, 0.4), rgba(255,255,255,0) 80%);
     }
 
     &.expense {
-        background: linear-gradient(to left, rgba(161, 10, 10, 0.4), rgba(255,255,255,0) 50%);
+        background: linear-gradient(to left, rgba(161, 10, 10, 0.4), rgba(255,255,255,0) 80%);
     }
 
     .table-section-title {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
         border-bottom: 1px solid rgba(88, 43, 114, 0.2);
-    }
-
-    .title-month {
-        margin: 20px 0 ;
     }
 
     .amount-expense {

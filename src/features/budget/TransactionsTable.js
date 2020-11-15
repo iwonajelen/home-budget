@@ -1,26 +1,37 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { format } from 'date-fns'
-import { removeTransaction } from '../transactions/transactionsSlice';
+import { useMediaQuery } from 'react-responsive';
 import { useTranslation } from "react-i18next";
-import { TransactionProperties } from "../transactions/transactionModel";
+import { TransactionProperties, Properties } from "../transactions/transactionModel";
 import './TransactionsTable.scss';
 
 export function TransactionsTable(props) {
     const {t, i18n} = useTranslation('common');
-    const dispatch = useDispatch();
+    
+    const isDesktopOrLaptop = useMediaQuery({query: '(min-device-width: 1024px)'});
+
+    const propertiesToHide = [
+        TransactionProperties.TYPE, 
+        TransactionProperties.CATEGORY, 
+        TransactionProperties.COMMENT, 
+        TransactionProperties.CONSTANT,
+        TransactionProperties.PERIOD
+    ]
+
+    const shouldHideProperty = (property) => {
+        return !isDesktopOrLaptop && propertiesToHide.includes(property);
+    }
 
     const getTitles = () => {
         const readTitle = (value) => {
             if(value !== TransactionProperties.CREATION_DATE) {
-                return <th key={value} >{t('transactions.' + value)}</th>;
+                return !shouldHideProperty(value.toLowerCase()) && <th key={value} >{t('transactions.' + value)}</th>;
             }
             
         }
         return (
             <tr>
                 {Object.values(TransactionProperties).map((value) => readTitle(value))}
-                <th key="options" >{t('transactions.options')}</th>
             </tr>
         )
     }
@@ -29,20 +40,22 @@ export function TransactionsTable(props) {
         const values = [];
         const getValue = (property) => {
             switch(property) {
-                case TransactionProperties.DATE:
+                case Properties.DATE:
                     return format(new Date(transaction[property]), 'dd/MM/yyyy');
-                case TransactionProperties.TYPE:
+                case Properties.TYPE:
                     return transaction[property] === "-" ? t('transactions.types.expense') : t('transactions.types.income');
-                case TransactionProperties.CONSTANT:
+                case Properties.CONSTANT:
                     return transaction[property] ? t('transactions.yes') : t('transactions.no');
-                case TransactionProperties.PERIOD:
+                case Properties.PERIOD:
                     return transaction[property] ? t('transactions.periods.' + transaction[property]) : '';
+                case Properties.AMOUNT:
+                    return `${transaction[property]} ${transaction[Properties.CURRENCY]}` ;
                 default:
                     return transaction[property];
             }
         }
         for (const property in TransactionProperties) {
-            if(property.toLowerCase() !== TransactionProperties.CREATION_DATE){
+            if((property.toLowerCase() !== TransactionProperties.CREATION_DATE) && !shouldHideProperty(property.toLowerCase())){
                 values.push(<td key={property.toLowerCase()}>{getValue(property.toLowerCase())}</td>);
             }
         }
@@ -50,12 +63,6 @@ export function TransactionsTable(props) {
     }
 
     const readRow = (data) => {
-        const remove = (transaction) => {
-            const index = data.indexOf(transaction);
-            if(index !== -1) {
-              dispatch(removeTransaction(index))
-            }
-        }
         const edit = (transaction) => {
             props.editTransaction(transaction);
         }
@@ -65,16 +72,6 @@ export function TransactionsTable(props) {
                 onClick={() => edit(transaction)} 
                 className={(transaction[TransactionProperties.TYPE] === "+") ? "income-background" : "expense-background"}>
                 {readValues(transaction)}
-                <td key="options">
-                    <div className="buttons">
-                        <button className="button is-danger is-light" onClick={() => remove(transaction)}>
-                            <i className="fas fa-trash"></i>
-                        </button>
-                        <button className="button is-warning is-light" onClick={() => edit(transaction)}>
-                            <i className="fas fa-edit"></i>
-                        </button>
-                    </div>
-                </td>
             </tr>);
         })
     }

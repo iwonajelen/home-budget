@@ -6,6 +6,18 @@ export const TransactionProperties = {
     TYPE: "type",
     CATEGORY: "category",
     AMOUNT: "amount",
+    // CURRENCY: "currency",
+    CONSTANT: "constant",
+    PERIOD: "period",
+    COMMENT: "comment",
+    // UNEXPECTED: "unexpected"
+}
+export const Properties = {
+    CREATION_DATE: "creation_date",
+    DATE: "date",
+    TYPE: "type",
+    CATEGORY: "category",
+    AMOUNT: "amount",
     CURRENCY: "currency",
     CONSTANT: "constant",
     PERIOD: "period",

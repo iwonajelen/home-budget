@@ -12,6 +12,8 @@ export function BudgetNavbar(props) {
     const {t, i18n} = useTranslation('common');
     const dispatch = useDispatch();
     const [fileName, setFileName] = useState('');
+    
+    const isDesktopOrLaptop = useMediaQuery({query: '(min-device-width: 1024px)'});
 
     const parseOptions = {
         header: true,
@@ -49,13 +51,9 @@ export function BudgetNavbar(props) {
         )
     }
 
-    const isDesktopOrLaptop = useMediaQuery({query: '(min-device-width: 1024px)'})
-    
-    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1023px)' })
-
     return (
-        <nav className={"level navbar container " + (isDesktopOrLaptop ? "is-fluid" : "is-fluid-small-padding")}>
-            <div className={"level-item " + (isDesktopOrLaptop ? "level-left" : "")}>
+        <nav className={"budget-navbar navbar container " + (isDesktopOrLaptop ? "is-fluid" : "is-fluid-small-padding")}>
+            <div>
                 <a href="." className="has-text-centered is-hidden-touch">
                     <img src={logo} alt={t('app.title')}/>
                 </a>
@@ -80,7 +78,7 @@ export function BudgetNavbar(props) {
                     </CSVLink>
                 </div>
             </div>
-            <div className="level-item">
+            <div>
                 <div className="buttons is-hidden-touch">
                     <button title={t('buttons.new_transaction')} className="button is-primary is-light" onClick={addNewTransaction}>{t('buttons.new_transaction')}</button>
                     <CSVReader 
@@ -98,13 +96,8 @@ export function BudgetNavbar(props) {
                     </CSVLink>
                 </div>
             </div>
-            <div className="level-right is-hidden-touch">
-                {/* <div className="level-item">
-                    <button className="button is-primary is-inverted" onClick={clearTransactionsData}>{t('buttons.clear')}</button>
-                </div> */}
-                <div className="level-item">
-                    <button className="button is-primary is-light" onClick={() => i18n.changeLanguage(getLanguageToChange())}>{getLanguageToChange()}</button>
-                </div>
+            <div>
+                <button className="button is-primary is-light" onClick={() => i18n.changeLanguage(getLanguageToChange())}>{getLanguageToChange()}</button>
             </div>
         </nav>
     );
