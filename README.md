@@ -1,68 +1,33 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# Home-budget
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+Application allows you to manage home budget and track your income and expenses. You can browse your transactions for each month. Income are marked green and expenses are marked red. If your income outweighted your expenses, the whole month will be marked green, otherwise it will be marked red. Your monthly balance is also displayed next to the month name.
 
-### `npm start`
+## Adding new transaction
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+You can add new transaction by clicking New transaction on navigation menu.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+* Date - date of your transaction
+* Type - Expense/Income
+* Category - you can choose category if you have any other transaction saved with fulfilled category, otherwise you have to put new category name
+* Amount - value of the transaction
+* Constant - if yes, you have to select if this is monthly or daily period
+* Unexpected - you can check if this is an unexpected transaction
+* Comment - you can add some comment to the transaction
 
-### `npm test`
+## Save as .csv
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+You can save your home budget as .csv file by clicking **Save** and choose a place to save.
 
-### `npm run build`
+## Load .csv
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+You can load your home budget from .csv file by **Select the .csv file**.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Languages
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+You can choose English or Polish language of the interface by click the button on the top right corner.
 
-### `npm run eject`
+## Made with
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+* React.js + Redux
